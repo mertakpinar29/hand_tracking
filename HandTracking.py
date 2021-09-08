@@ -40,10 +40,10 @@ while True:
 
     cv2.imshow("Camera", img)
 
-    # if checkThumbsUp:
-    #     engine.say("Thumbs Up!")
-    #     engine.runAndWait()
-    #     break
+    if checkThumbsUp:
+        engine.say("Thumbs Up!")
+        engine.runAndWait()
+        break
 
     if cv2.waitKey(1) & 0xFF == ord("q"):
         break
