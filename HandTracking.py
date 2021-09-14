@@ -1,6 +1,9 @@
 import cv2
 import mediapipe
 import pyttsx3
+import DebuggerBrowser
+
+browser = DebuggerBrowser.Browser()
 
 camera = cv2.VideoCapture(0)
 
@@ -15,6 +18,9 @@ mpDraw = mediapipe.solutions.drawing_utils
 checkThumbsUp = False
 
 while True:
+
+    if browser.checkButtonExists() and not browser.checkButtonsDefined():
+        browser.defineButtons()
 
     success, img = camera.read()
 
@@ -40,10 +46,9 @@ while True:
 
     cv2.imshow("Camera", img)
 
-    if checkThumbsUp:
-        engine.say("Thumbs Up!")
-        engine.runAndWait()
-        break
+    if checkThumbsUp and browser.checkButtonExists():
+        browser.likeVideo()
+        checkThumbsUp = False
 
     if cv2.waitKey(1) & 0xFF == ord("q"):
         break
